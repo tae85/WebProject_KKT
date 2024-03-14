@@ -1,4 +1,4 @@
-package board.free;
+package board.file;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,13 +13,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import utils.BoardPage;
 
-@WebServlet("/freeList.do")
-public class FreeListCtrl extends HttpServlet{
+@WebServlet("/fileList.do")
+public class FileListCtrl extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-//		System.out.println("FreeListCtrl 진입");
-		FreeBoardDAO dao = new FreeBoardDAO();
+//		System.out.println("FileListCtrl 진입");
+		FileBoardDAO dao = new FileBoardDAO();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -48,11 +48,11 @@ public class FreeListCtrl extends HttpServlet{
 		map.put("start", start);
 		map.put("end", end);
 		
-		List<FreeBoardDTO> boardLists = dao.selectListPage(map);
+		List<FileBoardDTO> boardLists = dao.selectListPage(map);
 		dao.close();
 		
 		String pagingImg = BoardPage.pagingImg
-				(totalCount, pageSize, blockPage, pageNum, "freeList.do");
+				(totalCount, pageSize, blockPage, pageNum, "fileList.do");
 		map.put("pagingImg", pagingImg);
 		map.put("totalCount", totalCount);
 		map.put("pageSize", pageSize);
@@ -60,8 +60,8 @@ public class FreeListCtrl extends HttpServlet{
 		
 		req.setAttribute("boardLists", boardLists);
 		req.setAttribute("map", map);
-//		System.out.println("FreeListCtrl 마지막");
-		req.getRequestDispatcher("/pages/tables/freeBoard.jsp").forward(req, resp);
+//		System.out.println("FileListCtrl 마지막");
+		req.getRequestDispatcher("/pages/tables/fileBoard.jsp").forward(req, resp);
 	}
 }
 

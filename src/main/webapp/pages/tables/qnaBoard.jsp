@@ -59,9 +59,9 @@ td, th {
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">자유 게시판</h4>
+                  <h4 class="card-title">QnA 게시판</h4>
                   <p class="card-description">
-                    Free Board
+                    QnA Board
                   </p>
                   <div class="table-responsive">
                     <table class="table table-striped">
@@ -102,8 +102,8 @@ td, th {
 		                           ${ map.totalCount - (((map.pageNum - 1) * map.pageSize) + loop.index) }
 		                         </td>
 		                         <td>
-		                         	<!-- <a href="freeView.do"> -->
-		                         	<a href="freeView.do?no=${ row.no }">
+		                         	<!-- <a href="qnaView.do"> -->
+		                         	<a href="qnaView.do?no=${ row.no }">
 		                            ${ row.title }
 		                         	</a>
 		                         </td>
@@ -131,7 +131,7 @@ td, th {
 				                ${ map.pagingImg }
 				            </td>
 				            <td width="100"><button position="right" type="button"
-				                onclick="location.href='freeWrite.do';">글쓰기</button></td>
+				                onclick="location.href='qnaWrite.do';">글쓰기</button></td>
 				        </tr>
 				    </table>
                     <!-- 페이지네이션 -->

@@ -1,4 +1,4 @@
-package member;
+package board.qna;
 
 import java.io.IOException;
 
@@ -9,35 +9,33 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import utils.JSFunction;
 
-@WebServlet("/register.do")
-public class RegisterController extends HttpServlet{
+@WebServlet("/qnaWrite.do")
+public class QnaWriteCtrl extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		req.getRequestDispatcher("pages/samples/register.jsp").forward(req, resp);
+		req.getRequestDispatcher("/pages/tables/qnaWrite.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
+		System.out.println("QnaWriteCtrl doPost ");
 		
-		System.out.println("Ctrl - 회원가입 진입");
-		MemberDTO dto = new MemberDTO();
+		QnaBoardDTO dto = new QnaBoardDTO();
 		dto.setId(req.getParameter("id"));
-		dto.setPass(req.getParameter("pass"));
-		dto.setName(req.getParameter("name"));
-		dto.setEmail(req.getParameter("email"));
+		dto.setTitle(req.getParameter("title"));
+		dto.setContents(req.getParameter("contents"));
 		
-		MemberDAO dao = new MemberDAO();
-		int result = dao.registerMember(dto);
+		QnaBoardDAO dao = new QnaBoardDAO();
+		int result = dao.insertQna(dto);
 		dao.close();
 		
 		if(result == 1) {
-			System.out.println("Ctrl - 회원가입성공");
-			resp.sendRedirect("index.jsp");
+			resp.sendRedirect("qnaList.do");
 		}
 		else {
-			JSFunction.alertLocation(resp, "회원가입에 실패했습니다.", "index.jsp");
+			JSFunction.alertLocation(resp, "글쓰기에 실패했습니다.", "qnaWrite.do");
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package board.free;
+package board.qna;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,13 +13,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import utils.BoardPage;
 
-@WebServlet("/freeList.do")
-public class FreeListCtrl extends HttpServlet{
+@WebServlet("/qnaList.do")
+public class QnaListCtrl extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-//		System.out.println("FreeListCtrl 진입");
-		FreeBoardDAO dao = new FreeBoardDAO();
+//		System.out.println("QnaListCtrl 진입");
+		QnaBoardDAO dao = new QnaBoardDAO();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -48,11 +48,11 @@ public class FreeListCtrl extends HttpServlet{
 		map.put("start", start);
 		map.put("end", end);
 		
-		List<FreeBoardDTO> boardLists = dao.selectListPage(map);
+		List<QnaBoardDTO> boardLists = dao.selectListPage(map);
 		dao.close();
 		
 		String pagingImg = BoardPage.pagingImg
-				(totalCount, pageSize, blockPage, pageNum, "freeList.do");
+				(totalCount, pageSize, blockPage, pageNum, "qnaList.do");
 		map.put("pagingImg", pagingImg);
 		map.put("totalCount", totalCount);
 		map.put("pageSize", pageSize);
@@ -60,8 +60,8 @@ public class FreeListCtrl extends HttpServlet{
 		
 		req.setAttribute("boardLists", boardLists);
 		req.setAttribute("map", map);
-//		System.out.println("FreeListCtrl 마지막");
-		req.getRequestDispatcher("/pages/tables/freeBoard.jsp").forward(req, resp);
+//		System.out.println("QnaListCtrl 마지막");
+		req.getRequestDispatcher("/pages/tables/qnaBoard.jsp").forward(req, resp);
 	}
 }
 

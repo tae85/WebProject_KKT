@@ -59,9 +59,9 @@ td, th {
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">자유 게시판</h4>
+                  <h4 class="card-title">자료 게시판</h4>
                   <p class="card-description">
-                    Free Board
+                    File Board
                   </p>
                   <div class="table-responsive">
                     <table class="table table-striped">
@@ -81,6 +81,9 @@ td, th {
                           </th>
                           <th style="width:100px;">
                             조회수
+                          </th>
+                          <th style="width:100px;">
+                            첨부파일
                           </th>
                         </tr>
                       </thead>
@@ -102,8 +105,8 @@ td, th {
 		                           ${ map.totalCount - (((map.pageNum - 1) * map.pageSize) + loop.index) }
 		                         </td>
 		                         <td>
-		                         	<!-- <a href="freeView.do"> -->
-		                         	<a href="freeView.do?no=${ row.no }">
+		                         	<a href="fileView.do?no=${ row.no }">
+		                         	<!-- <a href="fileView.do"> -->
 		                            ${ row.title }
 		                         	</a>
 		                         </td>
@@ -116,6 +119,12 @@ td, th {
 		                         <td>
 		                           ${ row.visitcount }
 		                         </td>
+		                         <c:if test="${ row.sfile eq null }" var="fileResult">
+		                         	<td> X </td>
+		                         </c:if>
+		                         <c:if test="${ not fileResult }">
+		                         	<td> O </td>
+		                         </c:if>
 		                       </tr>
 						</c:forEach>
 					</c:otherwise>
@@ -131,7 +140,7 @@ td, th {
 				                ${ map.pagingImg }
 				            </td>
 				            <td width="100"><button position="right" type="button"
-				                onclick="location.href='freeWrite.do';">글쓰기</button></td>
+				                onclick="location.href='fileWrite.do';">글쓰기</button></td>
 				        </tr>
 				    </table>
                     <!-- 페이지네이션 -->

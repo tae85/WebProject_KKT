@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,18 +24,22 @@ table {
 	border-spacing: 0 15px;
 }
 </style>
-<script>
-function goDelete() {
-    var confirmed = confirm("정말로 삭제하겠습니까?"); 
-    if (confirmed) {
-        var form = document.writeFrm;      
-        form.method = "post"; 
-        form.action = "freeDelete.do"; 
-        form.submit();         
+<script type="text/javascript">
+function validateForm(form) {  // 필수 항목 입력 확인
+    if (form.title.value == "") {
+        alert("제목을 입력하세요.");
+        form.title.focus();
+        return false;
+    }
+    if (form.contents.value == "") {
+        alert("내용을 입력하세요.");
+        form.contents.focus();
+        return false;
     }
 }
 </script>
 </head>
+
 <body>
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
@@ -53,70 +56,38 @@ function goDelete() {
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">게시물 상세 보기</h4>
-                  
-                  <form name="writeFrm" method="post"
-                  		action="freeEdit.do" class="forms-sample">
-                  <!-- <form name="writeFrm" class="forms-sample"> -->
+                  <h4 class="card-title">게시물 수정</h4>
+                  <p class="card-description">
+                    게시물 수정
+                  </p>
+                  <form name="wirteFrm" method="post" action="qnaEdit.do" 
+                  		onsubmit="return validateForm(this);" class="forms-sample">
                   	<input type="hidden" name="no" value="${ dto.no }" />
                   	<table>
                   	  <tbody>
-                  	    <tr>
-                  		  <td>
-                      		<label for="exampleInputName1">제목</label>
-                      		<input type="text" class="form-control" id="exampleInputName1" value="${ dto.id }" readonly />
-                  		  </td>
-                  		  <td style="width: 130px;">
-                      		<label for="exampleInputCity1">조회수</label>
-                      		<input type="text" class="form-control" id="exampleInputCity1" value="${ dto.visitcount }" readonly />
-                  		  </td>
-                  		</tr>
-                  		<tr>
-                  		  <td>
-	                        <label for="exampleInputEmail3">작성자</label>
-	                        <input type="text" class="form-control" id="exampleInputEmail3" value="${ dto.title }" readonly />
-                  		  </td>
-                  		  <td style="width: 130px;">
-                      		<label for="exampleInputPassword4">작성일</label>
-                     		<input type="text" class="form-control" id="exampleInputPassword4" value="${ dto.postdate }" readonly />
-                  		  </td>
-                  		</tr>
+                  	  	<tr>
+                  	  	  <td>
+	                        <label for="exampleInputName1">제목</label>
+	                        <input name="title" type="text" value="${ dto.title }" class="form-control" id="exampleInputName1"/>
+                  	  	  </td>
+                  	  	  <td style="width: 130px;">
+                     	    <label for="exampleInputEmail3">작성자</label>
+                      		<input name="id" type="text" value="${dto.id }" readonly class="form-control" id="exampleInputEmail3"/>
+                  	  	  </td>
+                  	  	</tr>
                   	  </tbody>
                   	</table>
-                  	
-                  	<!-- 기존 폼 -->
-                    <%-- <div class="form-group">
-                      <label for="exampleInputName1">제목</label>
-                      <input type="text" class="form-control" id="exampleInputName1" value="${ dto.id }" readonly />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputCity1">조회수</label>
-                      <input type="text" class="form-control" id="exampleInputCity1" value="${ dto.visitcount }" readonly />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail3">작성자</label>
-                      <input type="text" class="form-control" id="exampleInputEmail3" value="${ dto.title }" readonly />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword4">작성일</label>
-                      <input type="text" class="form-control" id="exampleInputPassword4" value="${ dto.postdate }" readonly />
-                    </div> --%>
-                    
                     <div class="form-group">
                       <label for="exampleTextarea1">내용</label>
-                      <textarea class="form-control" id="exampleTextarea1" rows="10" readonly >${ dto.contents }</textarea>
+                      <textarea name="contents" class="form-control" id="exampleTextarea1" rows="10">${ dto.contents }</textarea>
                     </div>
                     <div style="display: flex; justify-content: space-between;">
-                    	<div>
-		                    <button type="button" class="btn btn-primary mr-2" onclick="location.href='freeList.do';">목록</button>
-                    	</div>
-                    <c:if test="${ id eq dto.id }">
 	                   	<div>
-	    	                <button type="button" class="btn btn-light" onclick="location.href='freeEdit.do?no=${dto.no}';">수정</button>
-		                    <button type="button" class="btn btn-light" onclick="goDelete();" >삭제</button>
-<!-- 		                    <button type="button" class="btn btn-light" onclick="location.href='freeDelete.do';" >삭제</button> -->
+	    	                <button type="reset" class="btn btn-light" onclick="window.history.back()">뒤로가기</button>
 	                   	</div>
-	                </c:if>
+                    	<div>
+		                    <button type="submit" class="btn btn-primary mr-2">수정하기</button>
+                    	</div>
                     </div>
                   </form>
                 </div>

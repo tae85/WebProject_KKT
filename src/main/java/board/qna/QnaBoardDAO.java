@@ -1,4 +1,4 @@
-package board.free;
+package board.qna;
 
 import java.util.List;
 import java.util.Map;
@@ -6,14 +6,14 @@ import java.util.Vector;
 
 import common.DBConnPool;
 
-public class FreeBoardDAO extends DBConnPool {
-	public FreeBoardDAO() {
+public class QnaBoardDAO extends DBConnPool {
+	public QnaBoardDAO() {
 		super();
 	}
 	
 	public int selectCount(Map<String, Object> map) {
 		int totalCount = 0;
-		String sql = "select count(*) from freeBoard ";
+		String sql = "select count(*) from qnaBoard ";
 		if(map.get("searchWord") != null) {
 			sql += " where " + map.get("searchField") + " "
 					+ " like '%" + map.get("searchWord") + "%'";
@@ -31,17 +31,17 @@ public class FreeBoardDAO extends DBConnPool {
 		return totalCount;
 	}
 	
-	public List<FreeBoardDTO> selectListPage(Map<String, Object> map) {
-		List<FreeBoardDTO> board = new Vector<FreeBoardDTO>();
+	public List<QnaBoardDTO> selectListPage(Map<String, Object> map) {
+		List<QnaBoardDTO> board = new Vector<QnaBoardDTO>();
 		
 		String sql = 	" select * from "
 					+	"	(select tb.*, rownum rNum from "
-					+ 	"		(select * from freeBoard ";
+					+ 	"		(select * from qnaBoard ";
 		if(map.get("searchWord") != null) {
 			sql += " where " + map.get("searchField")
 					+ " like '%" + map.get("searchWord") + "%' ";
 		}
-		sql += " 		order by no desc "
+		sql += " 		order by qnaNo desc "
 				+ "   ) tb"
 				+ " ) "
 				+ " where rNum between ? and ?";
@@ -53,7 +53,7 @@ public class FreeBoardDAO extends DBConnPool {
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				FreeBoardDTO dto = new FreeBoardDTO();
+				QnaBoardDTO dto = new QnaBoardDTO();
 				dto.setNo(rs.getInt(1));
 				dto.setId(rs.getString(2));
 				dto.setTitle(rs.getString(3));
@@ -71,10 +71,10 @@ public class FreeBoardDAO extends DBConnPool {
 		return board;
 	}
 	
-	public FreeBoardDTO selectView(String no) {
-		FreeBoardDTO dto = new FreeBoardDTO();
+	public QnaBoardDTO selectView(String no) {
+		QnaBoardDTO dto = new QnaBoardDTO();
 		
-		String sql = "select * from freeBoard where no = ?";
+		String sql = "select * from qnaBoard where qnaNo = ?";
 		try {
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, no);
@@ -97,7 +97,7 @@ public class FreeBoardDAO extends DBConnPool {
 	}
 	
 	public void updateVisitCount(String no) {
-		String sql = "update freeBoard set visitcount = visitcount + 1 where no = ?";
+		String sql = "update qnaBoard set qnaVisitcount = qnaVisitcount + 1 where qnaNo = ?";
 		
 		try {
 			psmt = con.prepareStatement(sql);
@@ -110,15 +110,15 @@ public class FreeBoardDAO extends DBConnPool {
 		}
 	}
 	
-	public int insertFree(FreeBoardDTO dto) {
+	public int insertQna(QnaBoardDTO dto) {
 		int result = 0;
 		
 		try {
 			/* 쿼리문의 일련번호는 모델1 게시판에서 생성한 시퀀스를 그대로 사용한다. 나머지 값들은 
 			컨트롤러(서블릿)에서 받은 후 모델(DAO)로 전달한다. */
-			String sql = "insert into freeBoard "
-					+ " (no, id, title, contents) "
-					+ " values (seq_free_board_num.nextval, ?, ?, ?)";
+			String sql = "insert into qnaBoard "
+					+ " (qnaNo, id, qnaTitle, qnaContents) "
+					+ " values (seq_qna_board_num.nextval, ?, ?, ?)";
 			
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, dto.getId());
@@ -133,12 +133,12 @@ public class FreeBoardDAO extends DBConnPool {
 		return result;
 	}
 	
-	public int updateFree(FreeBoardDTO dto) {
+	public int updateQna(QnaBoardDTO dto) {
 		int result = 0;
 		try {
-			String sql = "update freeBoard"
-					+ " set title = ?, contents = ? "
-					+ " where no = ? ";
+			String sql = "update qnaBoard"
+					+ " set qnaTitle = ?, qnaContents = ? "
+					+ " where qnaNo = ? ";
 			
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, dto.getTitle());
@@ -154,11 +154,11 @@ public class FreeBoardDAO extends DBConnPool {
 		return result;
 	}
 	
-	public int deleteFree(String no) {
+	public int deleteQna(String no) {
 		int result = 0;
 		try {
 			//일련번호에 해당하는 게시물 1개 삭제
-			String sql = "delete from freeBoard where no=?";
+			String sql = "delete from qnaBoard where qnaNo=?";
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, no);
 			result = psmt.executeUpdate();

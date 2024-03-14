@@ -50,7 +50,7 @@
                 <img src="<%=request.getContextPath() %>/images/logo.svg" alt="logo">
               </div>
               <h4>회원 정보 수정</h4>
-              <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+              <h6 class="font-weight-light">패스워드, 이름, 이메일을<br/> 변경할 수 있습니다.</h6>
               
 <!----------------------------------------------------------------------------------------------->
               <form action="revise.do" method="post" name="registerFrm" class="pt-3"
@@ -70,20 +70,12 @@
                 <div class="form-group">
                   <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" value="${dto.email }">
                 </div>
-                <div class="mb-4">
-                  <div class="form-check">
-                    <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
-                      I agree to all Terms & Conditions
-                    </label>
-                  </div>
-                </div>
                 <div class="mt-3">
-                  <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" value="수정하기"/>
+                  <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" value="Revise Info"/>
 <!--                   <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">SIGN UP</a> -->
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  Already have an account? <a href="login.html" class="text-primary">Login</a>
+                  <a href="index.jsp" class="text-primary">메인 화면으로 가기</a>
                 </div>
               </form>
 <!----------------------------------------------------------------------------------------------->

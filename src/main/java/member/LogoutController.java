@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.CookieManager;
 
 @WebServlet("/logout.do")
 public class LogoutController extends HttpServlet{
@@ -15,6 +16,7 @@ public class LogoutController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		System.out.println("로그아웃 두겟");
+		CookieManager.deleteCookie(resp, "cookieLogin");
 		req.getSession().removeAttribute("id");
 		resp.sendRedirect("index.jsp");
 	}

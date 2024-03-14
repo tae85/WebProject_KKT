@@ -31,7 +31,7 @@ function goDelete() {
     if (confirmed) {
         var form = document.writeFrm;      
         form.method = "post"; 
-        form.action = "freeDelete.do"; 
+        form.action = "fileDelete.do"; 
         form.submit();         
     }
 }
@@ -56,7 +56,7 @@ function goDelete() {
                   <h4 class="card-title">게시물 상세 보기</h4>
                   
                   <form name="writeFrm" method="post"
-                  		action="freeEdit.do" class="forms-sample">
+                  		action="fileEdit.do" class="forms-sample">
                   <!-- <form name="writeFrm" class="forms-sample"> -->
                   	<input type="hidden" name="no" value="${ dto.no }" />
                   	<table>
@@ -79,6 +79,23 @@ function goDelete() {
                   		  <td style="width: 130px;">
                       		<label for="exampleInputPassword4">작성일</label>
                      		<input type="text" class="form-control" id="exampleInputPassword4" value="${ dto.postdate }" readonly />
+                  		  </td>
+                  		</tr>
+                  		<tr>
+                  		  <td>
+                  			<label for="exampleInputPassword4">
+                  				첨부파일
+                  			<c:if test="${ not empty dto.ofile }">
+					        	<a href="download.do?ofile=${ dto.ofile }&sfile=${ dto.sfile }&no=${ dto.no }">
+					        		[다운로드]
+					        	</a>
+				        	</c:if>
+                  			</label>
+					        <input type="text" class="form-control" id="exampleInputPassword4" value="${ dto.ofile }" readonly />
+                  		  </td>
+                  		  <td style="width: 130px;">
+                  		  <label for="exampleInputPassword4">다운로드수</label>
+                  		  <input type="text" class="form-control" id="exampleInputPassword4" value="${ dto.downcount }" readonly />
                   		  </td>
                   		</tr>
                   	  </tbody>
@@ -106,17 +123,26 @@ function goDelete() {
                       <label for="exampleTextarea1">내용</label>
                       <textarea class="form-control" id="exampleTextarea1" rows="10" readonly >${ dto.contents }</textarea>
                     </div>
+                    <c:if test="${ not empty dto.ofile and whatExt eq 'img' }">
+		        		<br><img src="Uploads/${ dto.sfile }" style="max-width:100%;"/>
+		        	</c:if>
+                    <c:if test="${ not empty dto.ofile and whatExt eq 'video' }">
+		        		<br><video src="Uploads/${ dto.sfile }" style="max-width:100%;" controls></video>
+		        	</c:if>
+                    <c:if test="${ not empty dto.ofile and whatExt eq 'audio' }">
+		        		<br><audio src="Uploads/${ dto.sfile }" style="max-width:100%;" controls autoplay></audio>
+		        	</c:if>
                     <div style="display: flex; justify-content: space-between;">
                     	<div>
-		                    <button type="button" class="btn btn-primary mr-2" onclick="location.href='freeList.do';">목록</button>
+		                    <button type="button" class="btn btn-primary mr-2" onclick="location.href='fileList.do';">목록</button>
                     	</div>
                     <c:if test="${ id eq dto.id }">
 	                   	<div>
-	    	                <button type="button" class="btn btn-light" onclick="location.href='freeEdit.do?no=${dto.no}';">수정</button>
+	    	                <button type="button" class="btn btn-light" onclick="location.href='fileEdit.do?no=${dto.no}';">수정</button>
 		                    <button type="button" class="btn btn-light" onclick="goDelete();" >삭제</button>
-<!-- 		                    <button type="button" class="btn btn-light" onclick="location.href='freeDelete.do';" >삭제</button> -->
+<!-- 		                    <button type="button" class="btn btn-light" onclick="location.href='fileDelete.do';" >삭제</button> -->
 	                   	</div>
-	                </c:if>
+                    </c:if>
                     </div>
                   </form>
                 </div>

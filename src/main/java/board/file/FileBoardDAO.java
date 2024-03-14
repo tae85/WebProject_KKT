@@ -1,4 +1,4 @@
-package board.free;
+package board.file;
 
 import java.util.List;
 import java.util.Map;
@@ -6,14 +6,15 @@ import java.util.Vector;
 
 import common.DBConnPool;
 
-public class FreeBoardDAO extends DBConnPool {
-	public FreeBoardDAO() {
+public class FileBoardDAO extends DBConnPool {
+	public FileBoardDAO() {
 		super();
 	}
 	
+	//게시물 전체 개수
 	public int selectCount(Map<String, Object> map) {
 		int totalCount = 0;
-		String sql = "select count(*) from freeBoard ";
+		String sql = "select count(*) from fileBoard ";
 		if(map.get("searchWord") != null) {
 			sql += " where " + map.get("searchField") + " "
 					+ " like '%" + map.get("searchWord") + "%'";
@@ -31,17 +32,18 @@ public class FreeBoardDAO extends DBConnPool {
 		return totalCount;
 	}
 	
-	public List<FreeBoardDTO> selectListPage(Map<String, Object> map) {
-		List<FreeBoardDTO> board = new Vector<FreeBoardDTO>();
+	//게시물 리스트 출력
+	public List<FileBoardDTO> selectListPage(Map<String, Object> map) {
+		List<FileBoardDTO> board = new Vector<FileBoardDTO>();
 		
 		String sql = 	" select * from "
 					+	"	(select tb.*, rownum rNum from "
-					+ 	"		(select * from freeBoard ";
+					+ 	"		(select * from fileBoard ";
 		if(map.get("searchWord") != null) {
 			sql += " where " + map.get("searchField")
 					+ " like '%" + map.get("searchWord") + "%' ";
 		}
-		sql += " 		order by no desc "
+		sql += " 		order by fileNo desc "
 				+ "   ) tb"
 				+ " ) "
 				+ " where rNum between ? and ?";
@@ -53,13 +55,16 @@ public class FreeBoardDAO extends DBConnPool {
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				FreeBoardDTO dto = new FreeBoardDTO();
+				FileBoardDTO dto = new FileBoardDTO();
 				dto.setNo(rs.getInt(1));
 				dto.setId(rs.getString(2));
 				dto.setTitle(rs.getString(3));
 				dto.setContents(rs.getString(4));
 				dto.setPostdate(rs.getDate(5));
 				dto.setVisitcount(rs.getInt(6));
+				dto.setOfile(rs.getString(7));
+				dto.setSfile(rs.getString(8));
+				dto.setDowncount(rs.getInt(9));
 				
 				board.add(dto);
 			}
@@ -71,10 +76,10 @@ public class FreeBoardDAO extends DBConnPool {
 		return board;
 	}
 	
-	public FreeBoardDTO selectView(String no) {
-		FreeBoardDTO dto = new FreeBoardDTO();
+	public FileBoardDTO selectView(String no) {
+		FileBoardDTO dto = new FileBoardDTO();
 		
-		String sql = "select * from freeBoard where no = ?";
+		String sql = "select * from fileBoard where fileNo = ?";
 		try {
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, no);
@@ -87,6 +92,9 @@ public class FreeBoardDAO extends DBConnPool {
 				dto.setContents(rs.getString(4));
 				dto.setPostdate(rs.getDate(5));
 				dto.setVisitcount(rs.getInt(6));
+				dto.setOfile(rs.getString(7));
+				dto.setSfile(rs.getString(8));
+				dto.setDowncount(rs.getInt(9));
 			}
 		} 
 		catch (Exception e) {
@@ -97,7 +105,7 @@ public class FreeBoardDAO extends DBConnPool {
 	}
 	
 	public void updateVisitCount(String no) {
-		String sql = "update freeBoard set visitcount = visitcount + 1 where no = ?";
+		String sql = "update fileBoard set fileVisitcount = fileVisitcount + 1 where fileNo = ?";
 		
 		try {
 			psmt = con.prepareStatement(sql);
@@ -110,20 +118,22 @@ public class FreeBoardDAO extends DBConnPool {
 		}
 	}
 	
-	public int insertFree(FreeBoardDTO dto) {
+	public int insertFile(FileBoardDTO dto) {
 		int result = 0;
 		
 		try {
 			/* 쿼리문의 일련번호는 모델1 게시판에서 생성한 시퀀스를 그대로 사용한다. 나머지 값들은 
 			컨트롤러(서블릿)에서 받은 후 모델(DAO)로 전달한다. */
-			String sql = "insert into freeBoard "
-					+ " (no, id, title, contents) "
-					+ " values (seq_free_board_num.nextval, ?, ?, ?)";
+			String sql = "insert into fileBoard "
+					+ " (fileNo, id, fileTitle, fileContents, ofile, sfile) "
+					+ " values (seq_file_board_num.nextval, ?, ?, ?, ?, ?)";
 			
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, dto.getId());
 			psmt.setString(2, dto.getTitle());
 			psmt.setString(3, dto.getContents());
+			psmt.setString(4, dto.getOfile());
+			psmt.setString(5, dto.getSfile());
 			result = psmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -133,17 +143,19 @@ public class FreeBoardDAO extends DBConnPool {
 		return result;
 	}
 	
-	public int updateFree(FreeBoardDTO dto) {
+	public int updateFile(FileBoardDTO dto) {
 		int result = 0;
 		try {
-			String sql = "update freeBoard"
-					+ " set title = ?, contents = ? "
-					+ " where no = ? ";
+			String sql = "update fileBoard"
+					+ " set fileTitle = ?, fileContents = ?, ofile=?, sfile=? "
+					+ " where fileNo = ? ";
 			
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, dto.getTitle());
 			psmt.setString(2, dto.getContents());
-			psmt.setInt(3, dto.getNo());
+			psmt.setString(3, dto.getOfile());
+			psmt.setString(4, dto.getSfile());
+			psmt.setInt(5, dto.getNo());
 			
 			result = psmt.executeUpdate();
 		} 
@@ -154,11 +166,11 @@ public class FreeBoardDAO extends DBConnPool {
 		return result;
 	}
 	
-	public int deleteFree(String no) {
+	public int deleteFile(String no) {
 		int result = 0;
 		try {
 			//일련번호에 해당하는 게시물 1개 삭제
-			String sql = "delete from freeBoard where no=?";
+			String sql = "delete from fileBoard where fileNo=?";
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, no);
 			result = psmt.executeUpdate();
@@ -169,4 +181,74 @@ public class FreeBoardDAO extends DBConnPool {
 		}
 		return result;
 	}
+	
+	public void downCountPlus(String no) {
+		String sql = "update fileBoard set downcount = downcount + 1 where fileNo = ?";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, no);
+			psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("다운로드 중 예외발생");
+			e.printStackTrace();
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

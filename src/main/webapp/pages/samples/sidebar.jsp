@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
+    
   	<div class="theme-setting-wrapper">
         <div id="settings-trigger"><i class="ti-settings"></i></div>
         <div id="theme-settings" class="settings-panel">
@@ -219,14 +218,24 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="icon-grid-2 menu-icon"></i>
-              <span class="menu-title">Tables</span>
-              <i class="menu-arrow"></i>
-            </a>
+            <c:set var="id" value='<%=session.getAttribute("id") %>'/>
+            <c:if test='${ id eq null }' var="result">
+              <a class="nav-link" data-toggle="collapse" href="javascript:void(0);" onclick="alert('로그인을 해주세요.');" aria-expanded="false" aria-controls="tables">
+                <i class="icon-grid-2 menu-icon"></i>
+                <span class="menu-title">Board</span>
+                <i class="menu-arrow"></i>
+              </a>
+            </c:if>
+            <c:if test="${ not result }">
+              <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                <i class="icon-grid-2 menu-icon"></i>
+                <span class="menu-title">Board</span>
+                <i class="menu-arrow"></i>
+              </a>
+            </c:if>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="freeList.do">Free Board</a></li>
+                <li class="nav-item"> <a class="nav-link" href="freeList.do" >Free Board</a></li>
                 <li class="nav-item"> <a class="nav-link" href="qnaList.do">QnA Board</a></li>
                 <li class="nav-item"> <a class="nav-link" href="fileList.do">File Board</a></li>
               </ul>
@@ -251,10 +260,18 @@
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.jsp"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.jsp"> Register </a></li>
-              </ul>
+              <c:if test='${ id eq null }' var="result">
+	              <ul class="nav flex-column sub-menu">
+	                <li class="nav-item"> <a class="nav-link" href="login.do"> Login </a></li>
+	                <li class="nav-item"> <a class="nav-link" href="register.do"> Register </a></li>
+	              </ul>
+              </c:if>
+              <c:if test="${ not result }">
+	              <ul class="nav flex-column sub-menu">
+	                <li class="nav-item"> <a class="nav-link" href="logout.do"> Logout </a></li>
+	                <li class="nav-item"> <a class="nav-link" href="revise.do"> Revise </a></li>
+	              </ul>
+              </c:if>
             </div>
           </li>
           <li class="nav-item">
