@@ -23,6 +23,7 @@ public class IndexCtrl extends HttpServlet{
 			for(int i = 0; i < cookies.length; i++) {
 				String cookieName = cookies[i].getName();
 				String cookieValue = cookies[i].getValue();
+				System.out.println("IndexCtrl : " + cookieName + " : " + cookieValue);
 				if(cookieName.equals("cookieLogin")) {
 					session.setAttribute("id", cookieValue);
 				}

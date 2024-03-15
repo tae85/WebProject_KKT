@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.CookieManager;
 import utils.JSFunction;
 
 @WebServlet("/login.do")
@@ -25,8 +26,8 @@ public class LoginController extends HttpServlet {
 		
 		String id = req.getParameter("id");
 		String pass = req.getParameter("pass");
-		String cookieLogin = req.getParameter("cookieCheck");
-		System.out.println("cookieLogin" + cookieLogin);
+		String cookieLoginChk = req.getParameter("cookieCheck");
+		System.out.println("cookieLoginChk : " + cookieLoginChk);
 		MemberDAO dao = new MemberDAO();
 		
 		boolean loginChk  = dao.loginMember(id, pass);
@@ -38,17 +39,20 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("pass", pass);
 			System.out.println(id + "로그인성공");
 			
-			if(cookieLogin.equals("Y")) {
-				Cookie cookie = new Cookie("cookieLogin", id);
-				cookie.setPath(req.getContextPath());
-				
-				//24시간
-				cookie.setMaxAge(86400);
-				resp.addCookie(cookie);
+			if(cookieLoginChk != null) {
+				System.out.println("cookieLoginChk");
+				CookieManager.makeCookie(resp, "cookieLogin", id, 86400);
+//				Cookie cookie = new Cookie("cookieLogin", id);
+//				
+//				cookie.setPath(req.getContextPath());
+//				
+//				//24시간
+//				cookie.setMaxAge(86400);
+//				resp.addCookie(cookie);
 			}
 			
 			
-			
+//			req.getRequestDispatcher("index.do").forward(req, resp);
 			resp.sendRedirect("index.jsp");
 		}
 		else {

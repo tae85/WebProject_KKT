@@ -16,8 +16,10 @@ public class LogoutController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		System.out.println("로그아웃 두겟");
+		
 		CookieManager.deleteCookie(resp, "cookieLogin");
 		req.getSession().removeAttribute("id");
+//		req.getRequestDispatcher("index.do").forward(req, resp);
 		resp.sendRedirect("index.jsp");
 	}
 }

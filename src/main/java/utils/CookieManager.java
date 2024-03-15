@@ -12,6 +12,7 @@ public class CookieManager {
 	*/
     public static void makeCookie(HttpServletResponse response, 
     		String cName, String cValue, int cTime) {
+    	System.out.println("makeCookie : " + cName);
     	//생성자를 통해 쿠키를 생성한다. 
         Cookie cookie = new Cookie(cName, cValue);
         //경로를 설정한다. 

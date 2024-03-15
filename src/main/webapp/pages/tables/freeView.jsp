@@ -84,24 +84,6 @@ function goDelete() {
                   	  </tbody>
                   	</table>
                   	
-                  	<!-- 기존 폼 -->
-                    <%-- <div class="form-group">
-                      <label for="exampleInputName1">제목</label>
-                      <input type="text" class="form-control" id="exampleInputName1" value="${ dto.id }" readonly />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputCity1">조회수</label>
-                      <input type="text" class="form-control" id="exampleInputCity1" value="${ dto.visitcount }" readonly />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail3">작성자</label>
-                      <input type="text" class="form-control" id="exampleInputEmail3" value="${ dto.title }" readonly />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword4">작성일</label>
-                      <input type="text" class="form-control" id="exampleInputPassword4" value="${ dto.postdate }" readonly />
-                    </div> --%>
-                    
                     <div class="form-group">
                       <label for="exampleTextarea1">내용</label>
                       <textarea class="form-control" id="exampleTextarea1" rows="10" readonly >${ dto.contents }</textarea>
@@ -112,8 +94,8 @@ function goDelete() {
                     	</div>
                     <c:if test="${ id eq dto.id }">
 	                   	<div>
-	    	                <button type="button" class="btn btn-light" onclick="location.href='freeEdit.do?no=${dto.no}';">수정</button>
-		                    <button type="button" class="btn btn-light" onclick="goDelete();" >삭제</button>
+	    	                <button type="button" class="btn btn-outline-light" onclick="location.href='freeEdit.do?no=${dto.no}';">수정</button>
+		                    <button type="button" class="btn btn-outline-light" onclick="goDelete();" >삭제</button>
 <!-- 		                    <button type="button" class="btn btn-light" onclick="location.href='freeDelete.do';" >삭제</button> -->
 	                   	</div>
 	                </c:if>

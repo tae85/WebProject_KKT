@@ -64,7 +64,7 @@ td, th {
                     File Board
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" style="margin-bottom:20px">
                       <thead>
                         <tr>
                           <th style="width:100px;">
@@ -134,12 +134,12 @@ td, th {
                     </table>
                     
                     <!-- 페이지네이션 -->
-                    <table width="90%">
+                    <table width="100%">
 				        <tr align="center">
 				            <td>
 				                ${ map.pagingImg }
 				            </td>
-				            <td width="100"><button position="right" type="button"
+				            <td width="100"><button position="right" type="button" class="btn btn-primary btn-sm"
 				                onclick="location.href='fileWrite.do';">글쓰기</button></td>
 				        </tr>
 				    </table>
