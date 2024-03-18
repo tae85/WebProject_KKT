@@ -75,11 +75,11 @@ public class FileEditCtrl extends HttpServlet {
 		dao.close();
 		
 		if(result == 1) {
-			resp.sendRedirect("fileList.do");
+			resp.sendRedirect("./fileList.do");
 		}
 		else {
 			JSFunction.alertLocation(resp, "게시물 수정에 실패했습니다. fileeditctrl", 
-					"fileList.do");
+					"./fileList.do");
 		}
 	}
 }

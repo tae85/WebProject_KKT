@@ -60,7 +60,7 @@ function validateForm(form) {  // 필수 항목 입력 확인
                   <p class="card-description">
                     글 작성 페이지
                   </p>
-                  <form name="wirteFrm" method="post" enctype="multipart/form-data" action="fileWrite.do"
+                  <form name="wirteFrm" method="post" enctype="multipart/form-data" action="./fileWrite.do"
                   		onsubmit="return validateForm(this);" class="forms-sample">
                   	<input type="hidden" name="no" value="${ dto.no }" />
                   	<table>

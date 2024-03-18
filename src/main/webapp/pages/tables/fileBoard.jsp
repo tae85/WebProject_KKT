@@ -105,8 +105,8 @@ td, th {
 		                           ${ map.totalCount - (((map.pageNum - 1) * map.pageSize) + loop.index) }
 		                         </td>
 		                         <td>
-		                         	<a href="fileView.do?no=${ row.no }">
-		                         	<!-- <a href="fileView.do"> -->
+		                         	<a href="./fileView.do?no=${ row.no }">
+		                         	<!-- <a href="./fileView.do"> -->
 		                            ${ row.title }
 		                         	</a>
 		                         </td>
@@ -140,7 +140,7 @@ td, th {
 				                ${ map.pagingImg }
 				            </td>
 				            <td width="100"><button position="right" type="button" class="btn btn-primary btn-sm"
-				                onclick="location.href='fileWrite.do';">글쓰기</button></td>
+				                onclick="location.href='./fileWrite.do';">글쓰기</button></td>
 				        </tr>
 				    </table>
                     <!-- 페이지네이션 -->

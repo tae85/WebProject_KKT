@@ -53,11 +53,12 @@ public class BoardPage {
 
 		int pageTemp = (((pageNum - 1) / blockPage) * blockPage) + 1;
 		if (pageTemp != 1) {
+			
 			pagingStr += "<a href='" + reqUrl + "?pageNum=1'><img src='images/paging1.gif'/></a>";
 			pagingStr += "&nbsp;";
 			pagingStr += "<a href='" + reqUrl + "?pageNum=" + (pageTemp - 1) + "'><img src='images/paging2.gif'/></a>";
+			
 		}
-
 		int blockCount = 1;
 		while (blockCount <= blockPage && pageTemp <= totalPages) {
 			if (pageTemp == pageNum) {
@@ -68,7 +69,6 @@ public class BoardPage {
 			pageTemp++;
 			blockCount++;
 		}
-
 		if (pageTemp <= totalPages) {
 			pagingStr += "<a href='" + reqUrl + "?pageNum=" + pageTemp + "'><img src='images/paging3.gif'/></a>";
 			pagingStr += "&nbsp;";

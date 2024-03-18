@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.setAttribute("id", id);
 			session.setAttribute("pass", pass);
-			System.out.println(id + "로그인성공");
+			System.out.println(id + " : " + pass + "로그인성공");
 			
 			if(cookieLoginChk != null) {
 				System.out.println("cookieLoginChk");
@@ -52,8 +52,8 @@ public class LoginController extends HttpServlet {
 			}
 			
 			
-//			req.getRequestDispatcher("index.do").forward(req, resp);
-			resp.sendRedirect("index.jsp");
+//			req.getRequestDispatcher("./index.do").forward(req, resp);
+			resp.sendRedirect("./index.jsp");
 		}
 		else {
 			JSFunction.alertBack(resp, "로그인에 실패했습니다.");

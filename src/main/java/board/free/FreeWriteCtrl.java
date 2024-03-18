@@ -32,7 +32,7 @@ public class FreeWriteCtrl extends HttpServlet {
 		dao.close();
 		
 		if(result == 1) {
-			resp.sendRedirect("freeList.do");
+			resp.sendRedirect("./freeList.do");
 		}
 		else {
 			JSFunction.alertLocation(resp, "글쓰기에 실패했습니다.", "../../freeWrite.do");

@@ -61,7 +61,7 @@ function validateForm(form) {  // 필수 항목 입력 확인
                   <p class="card-description">
                     게시물 작성
                   </p>
-                  <form name="wirteFrm" method="post" action="freeWrite.do" 
+                  <form name="wirteFrm" method="post" action="./freeWrite.do" 
                   		onsubmit="return validateForm(this);" class="forms-sample">
                   	<input type="hidden" name="no" value="${ dto.no }" />
                   	<table>

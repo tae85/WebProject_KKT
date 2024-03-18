@@ -26,10 +26,10 @@ public class FileDeleteCtrl extends HttpServlet {
 		if(result == 1) {
 			String saveFileName = dto.getSfile();
 			FileUtil.deleteFile(req, "/Uploads", saveFileName);
-			JSFunction.alertLocation(resp, "삭제되었습니다.", "fileList.do");
+			JSFunction.alertLocation(resp, "삭제되었습니다.", "./fileList.do");
 		}
 		else {
-			JSFunction.alertLocation(resp, "삭제에 실패했습니다.", "fileList.do");
+			JSFunction.alertLocation(resp, "삭제에 실패했습니다.", "./fileList.do");
 		}
 	}
 }

@@ -43,10 +43,10 @@ public class QnaEditCtrl extends HttpServlet {
 		dao.close();
 		
 		if(result == 1) {
-			resp.sendRedirect("qnaList.do");
+			resp.sendRedirect("./qnaList.do");
 		}
 		else {
-			JSFunction.alertLocation(resp, "비밀번호 검증을 다시 진행해주세요.", "qnaList.do");
+			JSFunction.alertLocation(resp, "비밀번호 검증을 다시 진행해주세요.", "./qnaList.do");
 		}
 	}
 }

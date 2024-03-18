@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import utils.JSFunction;
 
 @WebServlet("/revise.do")
@@ -41,11 +42,13 @@ public class ReviseController extends HttpServlet {
 		dao.close();
 		
 		if(result == 1) {
+			HttpSession session = req.getSession();
+			session.setAttribute("pass", req.getParameter("pass"));
 			System.out.println("Ctrl - 정보 수정 성공");
-			resp.sendRedirect("index.jsp");
+			resp.sendRedirect("./index.jsp");
 		}
 		else {
-			JSFunction.alertLocation(resp, "회원가입에 실패했습니다.", "index.jsp");
+			JSFunction.alertLocation(resp, "회원가입에 실패했습니다.", "./index.jsp");
 		}
 		
 	}

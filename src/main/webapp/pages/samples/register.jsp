@@ -63,13 +63,14 @@ function validateForm(form) {
               <h6 class="font-weight-light">아래 항목들을 모두 기입해주세요.</h6>
               
 <!----------------------------------------------------------------------------------------------->
-              <form action="register.do" method="post" name="registerFrm" class="pt-3"
+              <form action="./register.do" method="post" name="registerFrm" class="pt-3"
               		onsubmit="return validateForm(this);">
                 <div class="form-group">
+                  <span id="idResult"></span>
                   <input type="text" name="id" class="form-control form-control-lg" id="exampleInputId1" placeholder="ID">
                 </div>
                 <div class="form-group">
-                	<span id="result"></span>
+                  <span id="pwdResult"></span>
                   <input type="password" name="pass" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
                 </div>
                 <!-- <div class="form-group">
@@ -94,7 +95,7 @@ function validateForm(form) {
 <!--                   <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">SIGN UP</a> -->
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  Already have an account? <a href="login.do" class="text-primary">Login</a>
+                  Already have an account? <a href="./login.do" class="text-primary">Login</a>
                 </div>
               </form>
 <!----------------------------------------------------------------------------------------------->
@@ -120,31 +121,21 @@ function validateForm(form) {
   <script src="<%=request.getContextPath() %>/js/settings.js"></script>
   <script src="<%=request.getContextPath() %>/js/todolist.js"></script>
   <!-- endinject -->
-  <script type="text/javascript">
- 
-
-$("#exampleInputPassword1").on("change", function(){
+<script type="text/javascript">
+$("#exampleInputPassword1").on("keyup", function(){
 	var a = $("#exampleInputPassword1").val();
-	var regex = /^[A-Za-z][A-Za-z0-9]{10}$/;
-	if(!regex.exec(a)){
-		$("#result").html("ID 형식에 맞지 않습니다");
+	var regex = /^[A-Za-z0-9_]{4,10}/;
+	/* if(!regex.exec(a)){ */
+	if(!regex.test(a)){
+		$("#pwdResult").html("비밀번호 형식에 맞지 않습니다");
 		return;
 	}
 	else {
-		$("#result").html("ID 형식OK");
+		$("#pwdResult").html("비밀번호 형식OK");
 	}
-	/* $("#result").html("ID 형식OK"); */
-	$.ajax({
-		url : "checkId",
-		data : { id : a },
-		success : function(res1){
-			$("#result").html(res1);
-		},
-		error : function(err1){
-			$("#result").html("오류가 발생하였습니다.")
-		}
-	});
 });
+
+
   
 </script>
 </body>

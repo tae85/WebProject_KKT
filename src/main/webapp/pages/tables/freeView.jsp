@@ -31,7 +31,7 @@ function goDelete() {
     if (confirmed) {
         var form = document.writeFrm;      
         form.method = "post"; 
-        form.action = "freeDelete.do"; 
+        form.action = "./freeDelete.do"; 
         form.submit();         
     }
 }
@@ -56,7 +56,7 @@ function goDelete() {
                   <h4 class="card-title">게시물 상세 보기</h4>
                   
                   <form name="writeFrm" method="post"
-                  		action="freeEdit.do" class="forms-sample">
+                  		action="./freeEdit.do" class="forms-sample">
                   <!-- <form name="writeFrm" class="forms-sample"> -->
                   	<input type="hidden" name="no" value="${ dto.no }" />
                   	<table>
@@ -86,15 +86,15 @@ function goDelete() {
                   	
                     <div class="form-group">
                       <label for="exampleTextarea1">내용</label>
-                      <textarea class="form-control" id="exampleTextarea1" rows="10" readonly >${ dto.contents }</textarea>
+                      <textarea class="form-control" id="exampleTextarea1" rows="14" readonly >${ dto.contents }</textarea>
                     </div>
                     <div style="display: flex; justify-content: space-between;">
                     	<div>
-		                    <button type="button" class="btn btn-primary mr-2" onclick="location.href='freeList.do';">목록</button>
+		                    <button type="button" class="btn btn-primary mr-2" onclick="location.href='./freeList.do';">목록</button>
                     	</div>
                     <c:if test="${ id eq dto.id }">
 	                   	<div>
-	    	                <button type="button" class="btn btn-outline-light" onclick="location.href='freeEdit.do?no=${dto.no}';">수정</button>
+	    	                <button type="button" class="btn btn-outline-light" onclick="location.href='./freeEdit.do?no=${dto.no}';">수정</button>
 		                    <button type="button" class="btn btn-outline-light" onclick="goDelete();" >삭제</button>
 <!-- 		                    <button type="button" class="btn btn-light" onclick="location.href='freeDelete.do';" >삭제</button> -->
 	                   	</div>

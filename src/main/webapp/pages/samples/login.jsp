@@ -50,7 +50,7 @@
               <h6 class="font-weight-light">아이디와 패스워드를 입력해주세요.</h6>
               
 <!----------------------------------------------------------------------------------------------->
-              <form action="login.do" method="post" name="loginFrm" class="pt-3"
+              <form action="./login.do" method="post" name="loginFrm" class="pt-3"
               		onsubmit="return validateForm(this);">
                 <div class="form-group">
                 	<!-- email -> text -->
@@ -70,7 +70,7 @@
                       아이디 저장하기
                     </label>
                   </div>
-                  <a href="#" class="auth-link text-black">Forgot password?</a>
+                  <!-- <a href="#" class="auth-link text-black">Forgot password?</a> -->
                 </div>
                 <div class="mb-2">
                   <button type="button" class="btn btn-block btn-facebook auth-form-btn">
@@ -78,7 +78,7 @@
                   </button>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  Don't have an account? <a href="register.do" class="text-primary">Create</a>
+                  계정이 있으신가요? <a href="./register.do" class="text-info font-weight-bold"> 가입하기</a>
                 </div>
               </form>
 <!----------------------------------------------------------------------------------------------->

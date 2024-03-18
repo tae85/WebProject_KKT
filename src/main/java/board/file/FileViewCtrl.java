@@ -6,6 +6,7 @@ import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +21,38 @@ public class FileViewCtrl extends HttpServlet{
 		String no = req.getParameter("no");
 //		System.out.println("fileViewCtrl 진입1"+ no);
 		
-		dao.updateVisitCount(no);
+		Cookie viewCookie = null;
+		Cookie[] cookies = req.getCookies();
+		System.out.println("cookie : " + cookies);
+		if(cookies != null) {
+			for(int i = 0; i < cookies.length; i++) {
+				if(cookies[i].getName().equals("fileBoard|" + no)) {
+					System.out.println("cookies[i].getName() : " + cookies[i].getName());
+					viewCookie = cookies[i];
+					System.out.println("viewCookie : " + viewCookie);
+				}
+			}
+		}
+		else {
+			System.out.println("cookies 없음");
+		}
+		
+		if(viewCookie == null) {
+			System.out.println("viewCookie 없음");
+			try {
+				Cookie newCookie = new Cookie("fileBoard|" + no, "OK");
+				resp.addCookie(newCookie);
+				dao.updateVisitCount(no);
+			} 
+			catch (Exception e) {
+				System.out.println("조회수 중복 체크 중 예외 발생");
+				e.printStackTrace();
+			}
+		}
+		else {
+			String value=viewCookie.getValue();
+			System.out.println("viewCookie : " + value);
+		}
 		
 		FileBoardDTO dto = dao.selectView(no);
 		dao.close();

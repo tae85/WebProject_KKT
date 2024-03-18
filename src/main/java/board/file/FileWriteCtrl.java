@@ -36,7 +36,7 @@ public class FileWriteCtrl extends HttpServlet {
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
-			JSFunction.alertLocation(resp, "파일 업로드 오류입니다.", "write.do");
+			JSFunction.alertLocation(resp, "파일 업로드 오류입니다.", "./write.do");
 		}
 		
 		FileBoardDTO dto = new FileBoardDTO();
@@ -56,10 +56,10 @@ public class FileWriteCtrl extends HttpServlet {
 		dao.close();
 		
 		if(result == 1) {
-			resp.sendRedirect("fileList.do");
+			resp.sendRedirect("./fileList.do");
 		}
 		else {
-			JSFunction.alertLocation(resp, "글쓰기에 실패했습니다.", "fileWrite.do");
+			JSFunction.alertLocation(resp, "글쓰기에 실패했습니다.", "./fileWrite.do");
 		}
 	}
 }

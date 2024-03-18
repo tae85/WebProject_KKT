@@ -29,6 +29,6 @@ public class IndexCtrl extends HttpServlet{
 				}
 			}
 		}
-		req.getRequestDispatcher("index.jsp").forward(req, resp);
+		req.getRequestDispatcher("./index.jsp").forward(req, resp);
 	}
 }

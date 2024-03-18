@@ -235,9 +235,9 @@
             </c:if>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="freeList.do" >Free Board</a></li>
-                <li class="nav-item"> <a class="nav-link" href="qnaList.do">QnA Board</a></li>
-                <li class="nav-item"> <a class="nav-link" href="fileList.do">File Board</a></li>
+                <li class="nav-item"> <a class="nav-link" href="./freeList.do" >Free Board</a></li>
+                <li class="nav-item"> <a class="nav-link" href="./qnaList.do">QnA Board</a></li>
+                <li class="nav-item"> <a class="nav-link" href="./fileList.do">File Board</a></li>
               </ul>
             </div>
           </li>
@@ -262,14 +262,14 @@
             <div class="collapse" id="auth">
               <c:if test='${ id eq null }' var="result">
 	              <ul class="nav flex-column sub-menu">
-	                <li class="nav-item"> <a class="nav-link" href="login.do"> Login </a></li>
-	                <li class="nav-item"> <a class="nav-link" href="register.do"> Register </a></li>
+	                <li class="nav-item"> <a class="nav-link" href="./login.do"> Login </a></li>
+	                <li class="nav-item"> <a class="nav-link" href="./register.do"> Register </a></li>
 	              </ul>
               </c:if>
               <c:if test="${ not result }">
 	              <ul class="nav flex-column sub-menu">
-	                <li class="nav-item"> <a class="nav-link" href="logout.do"> Logout </a></li>
-	                <li class="nav-item"> <a class="nav-link" href="revise.do"> Revise </a></li>
+	                <li class="nav-item"> <a class="nav-link" href="./logout.do"> Logout </a></li>
+	                <li class="nav-item"> <a class="nav-link" href="./revise.do"> Revise </a></li>
 	              </ul>
               </c:if>
             </div>

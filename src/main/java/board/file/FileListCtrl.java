@@ -52,7 +52,7 @@ public class FileListCtrl extends HttpServlet{
 		dao.close();
 		
 		String pagingImg = BoardPage.pagingImg
-				(totalCount, pageSize, blockPage, pageNum, "fileList.do");
+				(totalCount, pageSize, blockPage, pageNum, "./fileList.do");
 		map.put("pagingImg", pagingImg);
 		map.put("totalCount", totalCount);
 		map.put("pageSize", pageSize);

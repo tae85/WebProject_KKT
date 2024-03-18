@@ -54,7 +54,7 @@ public class MemberDAO extends DBConnPool {
 	
 	public int reviseMember(MemberDTO dto, String prevPass) {
 		int result = 0;
-		
+		System.out.println(prevPass + " : " + dto.getPass());
 		try {
 			String sql = "update member "
 					+ "    set pass=?, name=?, email=? "

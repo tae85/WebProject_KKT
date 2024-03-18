@@ -52,7 +52,7 @@ public class QnaListCtrl extends HttpServlet{
 		dao.close();
 		
 		String pagingImg = BoardPage.pagingImg
-				(totalCount, pageSize, blockPage, pageNum, "qnaList.do");
+				(totalCount, pageSize, blockPage, pageNum, "./qnaList.do");
 		map.put("pagingImg", pagingImg);
 		map.put("totalCount", totalCount);
 		map.put("pageSize", pageSize);

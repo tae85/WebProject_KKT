@@ -73,26 +73,24 @@
             </div>
           </li>
           <li class="nav-item nav-profile dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-            
+            <a class="nav-link dropdown-toggle" href="./login.do" data-toggle="dropdown" id="profileDropdown">
             <%-- <c:set var="id" value='<%=session.getAttribute("id") %>'/> --%>
             <c:if test='${ id eq null }' var="result">
-              <img src="images/faces/noface.jpg" alt="profile"/>
+              	<img src="images/faces/noface.jpg" alt="profile"/>
             </c:if>
             <c:if test="${ not result }">
               <img src="images/faces/face28.jpg" alt="profile"/> ${ id } 님
 	            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-	              <a class="dropdown-item" href="revise.do">
+	              <a class="dropdown-item" href="./revise.do">
 	                <i class="ti-settings text-primary"></i>
 	                Revise
 	              </a>
-	              <a class="dropdown-item" href="logout.do">
+	              <a class="dropdown-item" href="./logout.do">
 	                <i class="ti-power-off text-primary"></i>
 	                Logout
 	              </a>
 	            </div>
             </c:if>
-             
             </a>
           </li>
           <li class="nav-item nav-settings d-none d-lg-flex">

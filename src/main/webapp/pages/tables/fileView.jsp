@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,7 @@
   <link rel="stylesheet" href="<%= request.getContextPath() %>/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="<%= request.getContextPath() %>/vendors/select2/select2.min.css">
   <link rel="stylesheet" href="<%= request.getContextPath() %>/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
   <!-- End plugin css for this page -->
@@ -18,12 +20,14 @@
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="<%= request.getContextPath() %>/images/favicon.png" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <style>
 table {
 	width: 100%;
 	border-collapse: separate;
 	border-spacing: 0 15px;
 }
+
 </style>
 <script>
 function goDelete() {
@@ -31,7 +35,7 @@ function goDelete() {
     if (confirmed) {
         var form = document.writeFrm;      
         form.method = "post"; 
-        form.action = "fileDelete.do"; 
+        form.action = "./fileDelete.do"; 
         form.submit();         
     }
 }
@@ -56,7 +60,7 @@ function goDelete() {
                   <h4 class="card-title">게시물 상세 보기</h4>
                   
                   <form name="writeFrm" method="post"
-                  		action="fileEdit.do" class="forms-sample">
+                  		action="./fileEdit.do" class="forms-sample">
                   <!-- <form name="writeFrm" class="forms-sample"> -->
                   	<input type="hidden" name="no" value="${ dto.no }" />
                   	<table>
@@ -86,14 +90,18 @@ function goDelete() {
                   			<label for="exampleInputPassword4">
                   				첨부파일
                   			<c:if test="${ not empty dto.ofile }">
-					        	<a href="download.do?ofile=${ dto.ofile }&sfile=${ dto.sfile }&no=${ dto.no }">
+					        	<%-- <a href="./download.do?ofile=${ dto.ofile }&sfile=${ dto.sfile }&no=${ dto.no }">
 					        		[다운로드]
-					        	</a>
+					        	</a> --%>
+					          <button type="button" class="btn btn-outline-info btn-icon-text btn-sm">
+	                            <i class="ti-download btn-icon-prepend"></i>                                                    
+	                            다운로드
+	                          </button>
 				        	</c:if>
                   			</label>
 					        <input type="text" class="form-control" id="exampleInputPassword4" value="${ dto.ofile }" readonly />
                   		  </td>
-                  		  <td style="width: 130px;">
+                  		  <td style="width: 130px; padding-top:13px">
                   		  <label for="exampleInputPassword4">다운로드수</label>
                   		  <input type="text" class="form-control" id="exampleInputPassword4" value="${ dto.downcount }" readonly />
                   		  </td>
@@ -103,7 +111,7 @@ function goDelete() {
                   	
                     <div class="form-group">
                       <label for="exampleTextarea1">내용</label>
-                      <textarea class="form-control" id="exampleTextarea1" rows="10" readonly >${ dto.contents }</textarea>
+                      <textarea class="form-control" id="exampleTextarea1" rows="14" readonly >${ dto.contents }</textarea>
                     </div>
                     <c:if test="${ not empty dto.ofile and whatExt eq 'img' }">
 		        		<br><img src="Uploads/${ dto.sfile }" style="max-width:100%;"/>
@@ -114,15 +122,15 @@ function goDelete() {
                     <c:if test="${ not empty dto.ofile and whatExt eq 'audio' }">
 		        		<br><audio src="Uploads/${ dto.sfile }" style="max-width:100%;" controls autoplay></audio>
 		        	</c:if>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex; justify-content: space-between; margin-top:30px">
                     	<div>
-		                    <button type="button" class="btn btn-primary mr-2" onclick="location.href='fileList.do';">목록</button>
+		                    <button type="button" class="btn btn-primary mr-2" onclick="location.href='./fileList.do';">목록</button>
                     	</div>
                     <c:if test="${ id eq dto.id }">
 	                   	<div>
-	    	                <button type="button" class="btn btn-outline-light" onclick="location.href='fileEdit.do?no=${dto.no}';">수정</button>
+	    	                <button type="button" class="btn btn-outline-light" onclick="location.href='./fileEdit.do?no=${dto.no}';">수정</button>
 		                    <button type="button" class="btn btn-outline-light" onclick="goDelete();" >삭제</button>
-<!-- 		                    <button type="button" class="btn btn-light" onclick="location.href='fileDelete.do';" >삭제</button> -->
+<!-- 		                    <button type="button" class="btn btn-light" onclick="location.href='./fileDelete.do';" >삭제</button> -->
 	                   	</div>
                     </c:if>
                     </div>
@@ -166,5 +174,30 @@ function goDelete() {
   <script src="<%= request.getContextPath() %>/js/typeahead.js"></script>
   <script src="<%= request.getContextPath() %>/js/select2.js"></script>
   <!-- End custom js for this page-->
+  
+  <script>
+  function golikeAdd(mu_co_no) {
+		var showmemId = $("#mem_id").val();
+		console.log(showmemId);
+		console.log(mu_co_no);
+		
+		$.ajax({
+			url : "likeAddAction",
+			type : "POST",
+			data : {
+				mu_co_no : mu_co_no,
+				mem_id : showmemId
+			},
+			success : function(result) {
+				$("#" + mu_co_no + "like")
+						.attr("src",
+								"${pageContext.request.contextPath}/image/likegreen.svg");
+				$("#" + mu_co_no + "dislike")
+						.attr("src",
+								"${pageContext.request.contextPath}/image/001-dislike.svg");
+			}
+		});
+	}
+  </script>
 </body>
 </html>

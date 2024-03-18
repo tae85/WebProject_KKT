@@ -32,10 +32,10 @@ public class QnaWriteCtrl extends HttpServlet {
 		dao.close();
 		
 		if(result == 1) {
-			resp.sendRedirect("qnaList.do");
+			resp.sendRedirect("./qnaList.do");
 		}
 		else {
-			JSFunction.alertLocation(resp, "글쓰기에 실패했습니다.", "qnaWrite.do");
+			JSFunction.alertLocation(resp, "글쓰기에 실패했습니다.", "./qnaWrite.do");
 		}
 	}
 }

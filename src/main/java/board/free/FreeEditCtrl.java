@@ -43,7 +43,7 @@ public class FreeEditCtrl extends HttpServlet {
 		dao.close();
 		
 		if(result == 1) {
-			resp.sendRedirect("freeList.do");
+			resp.sendRedirect("./freeList.do");
 		}
 		else {
 			JSFunction.alertLocation(resp, "비밀번호 검증을 다시 진행해주세요.", 

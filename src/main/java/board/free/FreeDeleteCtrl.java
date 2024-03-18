@@ -20,10 +20,10 @@ public class FreeDeleteCtrl extends HttpServlet {
 		int result = dao.deleteFree(no);
 		
 		if(result == 1) {
-			JSFunction.alertLocation(resp, "삭제되었습니다.", "freeList.do");
+			JSFunction.alertLocation(resp, "삭제되었습니다.", "./freeList.do");
 		}
 		else {
-			JSFunction.alertLocation(resp, "삭제에 실패했습니다.", "freeList.do");
+			JSFunction.alertLocation(resp, "삭제에 실패했습니다.", "./freeList.do");
 		}
 	}
 }

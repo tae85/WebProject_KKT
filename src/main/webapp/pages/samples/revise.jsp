@@ -53,7 +53,7 @@
               <h6 class="font-weight-light">패스워드, 이름, 이메일을<br/> 변경할 수 있습니다.</h6>
               
 <!----------------------------------------------------------------------------------------------->
-              <form action="revise.do" method="post" name="registerFrm" class="pt-3"
+              <form action="./revise.do" method="post" name="registerFrm" class="pt-3"
               		onsubmit="return validateForm(this);">
                 <div class="form-group">
                   <input type="text" name="id" class="form-control form-control-lg" id="exampleInputId1" placeholder="ID" value="${dto.id }" readonly>
