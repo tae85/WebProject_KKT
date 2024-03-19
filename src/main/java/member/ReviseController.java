@@ -28,9 +28,9 @@ public class ReviseController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		String pass = (String) req.getSession().getAttribute("pass");
+		String prevPass = req.getParameter("prevPass");
+		System.out.println("ReviseController doPost = " + prevPass);
 		
-		System.out.println("ReviseController doPost = " + pass);
 		MemberDTO dto = new MemberDTO();
 		dto.setId(req.getParameter("id"));
 		dto.setPass(req.getParameter("pass"));
@@ -38,7 +38,7 @@ public class ReviseController extends HttpServlet {
 		dto.setEmail(req.getParameter("email"));
 		
 		MemberDAO dao = new MemberDAO();
-		int result = dao.reviseMember(dto, pass);
+		int result = dao.reviseMember(dto, prevPass);
 		dao.close();
 		
 		if(result == 1) {

@@ -55,6 +55,7 @@
 <!----------------------------------------------------------------------------------------------->
               <form action="./revise.do" method="post" name="registerFrm" class="pt-3"
               		onsubmit="return validateForm(this);">
+              	<input type="hidden" name="prevPass" value="${dto.pass }"/>
                 <div class="form-group">
                   <input type="text" name="id" class="form-control form-control-lg" id="exampleInputId1" placeholder="ID" value="${dto.id }" readonly>
                 </div>
