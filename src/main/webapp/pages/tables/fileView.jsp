@@ -93,7 +93,7 @@ function goDelete() {
 					        	<%-- <a href="./download.do?ofile=${ dto.ofile }&sfile=${ dto.sfile }&no=${ dto.no }">
 					        		[다운로드]
 					        	</a> --%>
-					          <button type="button" class="btn btn-outline-info btn-icon-text btn-sm">
+					          <button type="button" class="btn btn-outline-info btn-icon-text btn-sm" onclick="location.href='./download.do?ofile=${ dto.ofile }&sfile=${ dto.sfile }&no=${ dto.no }'">
 	                            <i class="ti-download btn-icon-prepend"></i>                                                    
 	                            다운로드
 	                          </button>

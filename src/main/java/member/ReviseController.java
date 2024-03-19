@@ -30,7 +30,7 @@ public class ReviseController extends HttpServlet {
 			throws ServletException, IOException {
 		String pass = (String) req.getSession().getAttribute("pass");
 		
-		System.out.println("ReviseController doGet = " + pass);
+		System.out.println("ReviseController doPost = " + pass);
 		MemberDTO dto = new MemberDTO();
 		dto.setId(req.getParameter("id"));
 		dto.setPass(req.getParameter("pass"));
@@ -48,7 +48,7 @@ public class ReviseController extends HttpServlet {
 			resp.sendRedirect("./index.jsp");
 		}
 		else {
-			JSFunction.alertLocation(resp, "회원가입에 실패했습니다.", "./index.jsp");
+			JSFunction.alertLocation(resp, "회원정보 수정에 실패했습니다.", "./index.jsp");
 		}
 		
 	}
