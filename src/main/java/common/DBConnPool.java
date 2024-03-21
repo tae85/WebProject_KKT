@@ -40,7 +40,7 @@ public class DBConnPool {
 			/*
 			3.server.xml에 등록된 네이밍을 lookup하여 DataSource를 얻어온다. 즉, DB연결을 위한 정보를 얻어온다.
 			 */
-			DataSource source = (DataSource)ctx.lookup("dbcp_myoracle");
+			DataSource source = (DataSource)ctx.lookup("dbcp_myoracle99");
 			/*
 			4.커넥션풀에 생성되어 있는 객체를 가져다가 사용한다.
 			 */
